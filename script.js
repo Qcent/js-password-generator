@@ -9,7 +9,7 @@ const charaterTypes = {
     lower: ["a", "b", "c", "d", "e", "f", "g", "h", "i'", "j", "k",
         "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "w", "x", "y", "z"
     ],
-    num: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+    number: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
     special: ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", " ,",
         "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\",
         "]", "^", "_", "`", "{", "|", "}", "~"
@@ -68,7 +68,7 @@ var validateInput = function() {
 
 }
 
-// Function to Generate a Password
+// Function to Display teh Criteria selector
 var displayCriteria = function() {
 
     // disable the generate button
@@ -86,12 +86,58 @@ var displayCriteria = function() {
 var generatePassword = function(len, upp, low, num, spc) {
     // generate password according to criteria
     //make a list of valid charaters
-    for (let i = 0; i < len; i++) {
+    var allowedChar = new Array();
 
+    if (upp) { allowedChar = allowedChar.concat(charaterTypes.upper); }
+    if (low) { allowedChar = allowedChar.concat(charaterTypes.lower); }
+    if (num) { allowedChar = allowedChar.concat(charaterTypes.number); }
+    if (spc) { allowedChar = allowedChar.concat(charaterTypes.special); }
+
+    //random sort the array to mix up character types
+    //found this touted as the most efficient algorithm online 
+    // a random swap using the Fisher-Yates Algorithm
+    // i will attempt to explain it
+    /* for (let i = array.length— 1; i > 0; i--) {      // let i = array length ; while i > 0 run the loop; count down i each loop
+        const j = Math.floor(Math.random() * i)         // let j = a random number up to value of i
+        const temp = array[i]                        // have a temp array hold value at array[i]
+        array[i] = array[j]                         // change array[i] value to the random(j) chosen position array[j]
+        array[j] = temp                             // change array[j] value to the original value of the array[i]
+    } // continue counting through array until every element has been swaped out for another by brute force
+    */
+
+    for (let i = allowedChar.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+        const temp = allowedChar[i];
+        //allowedChar[i] = allowedChar[j];  //splice is needed
+        allowedChar.splice(i, 1, allowedChar[j]);
+        //allowedChar[j] = temp;  //splice is needed
+        allowedChar.splice(j, 1, temp);
     }
-    //return password
-}
 
+    console.log(allowedChar);
+    // variable to store password as it is generated
+    let passGen = '';
+    console.log(passGen.length);
+    //  while ( passGen.length < len) {
+    //
+    //   }
+
+
+    //return password
+
+    /* example usage of  crypto.getRandomValues()*/
+    /*
+        var array = new Uint32Array(1);
+        window.crypto.getRandomValues(array);
+
+        console.log("Your lucky numbers:");
+        for (var i = 0; i < array.length; i++) {
+            console.log(array[i]);
+        }
+    */
+
+
+}
 
 // Write password to the #password input
 function writePassword() {
