@@ -10,7 +10,7 @@ const charaterTypes = {
         "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "w", "x", "y", "z"
     ],
     number: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-    special: ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", " ,",
+    special: [" ", "!", "#", "$", "%", "&", "'", "(", ")", "*", "+", " ,",
         "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\",
         "]", "^", "_", "`", "{", "|", "}", "~"
     ]
@@ -93,17 +93,18 @@ var generatePassword = function(len, upp, low, num, spc) {
     if (num) { allowedChar = allowedChar.concat(charaterTypes.number); }
     if (spc) { allowedChar = allowedChar.concat(charaterTypes.special); }
 
-    //random sort the array to mix up character types
-    //found this touted as the most efficient algorithm online 
-    // a random swap using the Fisher-Yates Algorithm
-    // i will attempt to explain it
-    /* for (let i = array.length— 1; i > 0; i--) {      // let i = array length ; while i > 0 run the loop; count down i each loop
-        const j = Math.floor(Math.random() * i)         // let j = a random number up to value of i
-        const temp = array[i]                        // have a temp array hold value at array[i]
-        array[i] = array[j]                         // change array[i] value to the random(j) chosen position array[j]
-        array[j] = temp                             // change array[j] value to the original value of the array[i]
-    } // continue counting through array until every element has been swaped out for another by brute force
-    */
+    console.log(allowedChar.length)
+        //random sort the array to mix up character types
+        //found this touted as the most efficient algorithm online 
+        // a random swap using the Fisher-Yates Algorithm
+        // i will attempt to explain it
+        /* for (let i = array.length— 1; i > 0; i--) {      // let i = array length ; while i > 0 run the loop; count down i each loop
+            const j = Math.floor(Math.random() * i)         // let j = a random number up to value of i
+            const temp = array[i]                        // have a temp array hold value at array[i]
+            array[i] = array[j]                         // change array[i] value to the random(j) chosen position array[j]
+            array[j] = temp                             // change array[j] value to the original value of the array[i]
+        } // continue counting through array until every element has been swaped out for another by brute force
+        */
 
     for (let i = allowedChar.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * i);
@@ -114,14 +115,25 @@ var generatePassword = function(len, upp, low, num, spc) {
         allowedChar.splice(j, 1, temp);
     }
 
-    console.log(allowedChar);
     // variable to store password as it is generated
     let passGen = '';
-    console.log(passGen.length);
-    //  while ( passGen.length < len) {
-    //
-    //   }
+    while (passGen.length < len) { // while less then the required number of characters loop
 
+        var seed = new Uint32Array(1);
+        window.crypto.getRandomValues(seed); //generate a cryptographically secure seed 10 chars long
+
+        //there are only 93 possible characters to choose from so
+        //take 2 consecutive digits from seed convert to int and use as index to allowedChar
+        const randIndex = parseInt(seed.toString().substr(Math.floor(Math.random() * 7) + 1, 2));
+
+        if (randIndex < allowedChar.length - 1) // if the index is valid (this will not scale past 99 possible characters)
+        {
+            passGen += allowedChar[randIndex];
+        }
+        console.log(passGen);
+    }
+
+    console.log(passGen.length);
 
     //return password
 
