@@ -1,6 +1,7 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 var validateBtn = document.querySelector("#validateInput");
+var passwordText = document.querySelector("#password");
 
 const charaterTypes = {
     upper: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
@@ -73,6 +74,10 @@ var displayCriteria = function() {
 
     // disable the generate button
     generateBtn.disabled = true;
+
+    // enable the validate button
+    validateBtn.disabled = false;
+
     // display criteria prompt with submit button
     document.getElementById("passwordOverlay").style.opacity = 1;
 
@@ -93,18 +98,17 @@ var generatePassword = function(len, upp, low, num, spc) {
     if (num) { allowedChar = allowedChar.concat(charaterTypes.number); }
     if (spc) { allowedChar = allowedChar.concat(charaterTypes.special); }
 
-    console.log(allowedChar.length)
-        //random sort the array to mix up character types
-        //found this touted as the most efficient algorithm online 
-        // a random swap using the Fisher-Yates Algorithm
-        // i will attempt to explain it
-        /* for (let i = array.length— 1; i > 0; i--) {      // let i = array length ; while i > 0 run the loop; count down i each loop
-            const j = Math.floor(Math.random() * i)         // let j = a random number up to value of i
-            const temp = array[i]                        // have a temp array hold value at array[i]
-            array[i] = array[j]                         // change array[i] value to the random(j) chosen position array[j]
-            array[j] = temp                             // change array[j] value to the original value of the array[i]
-        } // continue counting through array until every element has been swaped out for another by brute force
-        */
+    //random sort the array to mix up character types
+    //found this touted as the most efficient algorithm online 
+    // a random swap using the Fisher-Yates Algorithm
+    // i will attempt to explain it
+    /* for (let i = array.length— 1; i > 0; i--) {      // let i = array length ; while i > 0 run the loop; count down i each loop
+        const j = Math.floor(Math.random() * i)         // let j = a random number up to value of i
+        const temp = array[i]                        // have a temp array hold value at array[i]
+        array[i] = array[j]                         // change array[i] value to the random(j) chosen position array[j]
+        array[j] = temp                             // change array[j] value to the original value of the array[i]
+    } // continue counting through array until every element has been swaped out for another by brute force
+    */
 
     for (let i = allowedChar.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * i);
@@ -128,36 +132,38 @@ var generatePassword = function(len, upp, low, num, spc) {
 
         if (randIndex < allowedChar.length - 1) // if the index is valid (this will not scale past 99 possible characters)
         {
-            passGen += allowedChar[randIndex];
+            passGen += allowedChar[randIndex]; // add an allowedChar to the passGen
         }
-        console.log(passGen);
     }
 
-    console.log(passGen.length);
 
-    //return password
-
-    /* example usage of  crypto.getRandomValues()*/
-    /*
-        var array = new Uint32Array(1);
-        window.crypto.getRandomValues(array);
-
-        console.log("Your lucky numbers:");
-        for (var i = 0; i < array.length; i++) {
-            console.log(array[i]);
-        }
-    */
+    //display password
+    console.log(passGen);
+    var passwordText = document.querySelector("#password");
+    passwordText.value = passGen;
 
 
+    // disable the validate button
+    validateBtn.disabled = true;
+    // enable the generate button
+    generateBtn.disabled = false;
+    //hide the overlay
+    document.getElementById("passwordOverlay").style.opacity = 0;
 }
 
 // Write password to the #password input
+// not used in my implimentation
 function writePassword() {
     var password = generatePassword();
     var passwordText = document.querySelector("#password");
 
     passwordText.value = password;
+}
 
+function copyToClipboard() {
+    // write pasword to clipboard
+    navigator.clipboard.writeText(document.querySelector("#password").value);
+    passwordText.style.backgroundColor = "#555";
 }
 
 // Add event listener to generate button

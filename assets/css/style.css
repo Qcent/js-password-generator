@@ -120,6 +120,9 @@ button[disabled] {
 }
 
 #passwordOverlay {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     position: absolute;
     top: 0;
     left: 0;
@@ -128,12 +131,17 @@ button[disabled] {
     padding: 4px;
     background-color: burlywood;
     opacity: 0;
+    transition: all .2s ease;
 }
 
 #char-select-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: right;
+}
+
+#numOfChars {
+    width: 4em;
 }
 
 #char-select-boxes {
@@ -145,8 +153,6 @@ button[disabled] {
 #char-select-boxes label {
     width: 50%;
 }
-
-#numOfChars-wrapper {}
 
 @media (max-width: 690px) {
     .btn {
