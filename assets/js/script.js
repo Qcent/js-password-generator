@@ -1,14 +1,15 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 var validateBtn = document.querySelector("#validateInput");
+var copyBtn = document.querySelector("#copyPassword");
 var passwordText = document.querySelector("#password");
 
 const charaterTypes = {
     upper: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
         "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
     ],
-    lower: ["a", "b", "c", "d", "e", "f", "g", "h", "i'", "j", "k",
-        "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+    lower: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+        "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
     ],
     number: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
     special: [" ", "!", "#", "$", "%", "&", "'", "(", ")", "*", "+", " ,",
@@ -130,6 +131,8 @@ var generatePassword = function(len, upp, low, num, spc) {
         //take 2 consecutive digits from seed convert to int and use as index to allowedChar
         const randIndex = parseInt(seed.toString().substr(Math.floor(Math.random() * 7) + 1, 2));
 
+        console.log(randIndex + ":" + allowedChar[randIndex])
+
         if (randIndex < allowedChar.length - 1) // if the index is valid (this will not scale past 99 possible characters)
         {
             passGen += allowedChar[randIndex]; // add an allowedChar to the passGen
@@ -149,6 +152,9 @@ var generatePassword = function(len, upp, low, num, spc) {
     generateBtn.disabled = false;
     //hide the overlay
     document.getElementById("passwordOverlay").style.opacity = 0;
+
+    //display copy button
+    document.getElementById("copyPassword").style.display = "show";
 }
 
 // Write password to the #password input
@@ -163,8 +169,19 @@ function writePassword() {
 function copyToClipboard() {
     // write pasword to clipboard
     navigator.clipboard.writeText(document.querySelector("#password").value);
-    passwordText.style.backgroundColor = "#555";
+    document.querySelector("#password").value = "Copied to Clipboard";
+
+    setTimeout(function() {
+        resetPasswordTextArea();
+    }, 1200);
+
 }
 
+function resetPasswordTextArea() {
+    document.querySelector("#password").value = null;
+}
 // Add event listener to generate button
 generateBtn.addEventListener("click", displayCriteria);
+
+// Add event listener to copy button
+copyBtn.addEventListener("click", copyToClipboard);
