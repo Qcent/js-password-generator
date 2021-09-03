@@ -152,9 +152,6 @@ var generatePassword = function(len, upp, low, num, spc) {
     generateBtn.disabled = false;
     //hide the overlay
     document.getElementById("passwordOverlay").style.opacity = 0;
-
-    //display copy button
-    document.getElementById("copyPassword").style.display = "show";
 }
 
 // Write password to the #password input
