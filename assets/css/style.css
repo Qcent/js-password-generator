@@ -121,6 +121,7 @@ button[disabled] {
 
 #passwordOverlay {
     display: flex;
+    flex-direction:column;
     justify-content: center;
     flex-wrap: wrap;
     position: absolute;
