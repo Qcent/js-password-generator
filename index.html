@@ -18,7 +18,7 @@
             <div class="card-header">
                 <h2>Generate a Password</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body" title="Click to Copy to Clipboard">
                 <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password" onclick="copyToClipboard()"></textarea>
                 <!-- MY NEW HTML HERE -->
                 <div id="passwordOverlay">
@@ -39,19 +39,17 @@
                           special </label>
                     </div>
 
-                    <div id="Chars-and-Go">
-                        <label for="numOfChars"> Password length (8-128): </label>
-                        <input type="input" id="numOfChars" name="numOfChars" value="8">
-                        <button id="validateInput" class="btn" disabled>GO!</button>
+                    <div id="charLength-wrapper">
+                        <label for="charLength"> Password length (8-128): </label>
+                        <input type="input" id="charLength" name="charLength" value="8">
                     </div>
 
                 </div>
+
                 <!-- END OF MY NEW HTLML-->
             </div>
             <div class="card-footer">
-                <button id="generate" class="btn">Generate Password</button>
-
-                <button id="copyPassword" class="btn" disabgled>Copy</button>
+                <button id="generate" class="btn" tabindex="1">Generate Password</button>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-var validateBtn = document.querySelector("#validateInput");
+var inputEntered = document.querySelector("#charLength");
 var copyBtn = document.querySelector("#copyPassword");
 var passwordText = document.querySelector("#password");
 
@@ -18,11 +18,23 @@ const charaterTypes = {
     ]
 }
 
+//Function to decide what #generate button does
+var displayOrCreate = function() {
+    if (document.getElementById("passwordOverlay").style.zIndex > 0) {
+        validateInput();
+    } else {
+        displayCriteria();
+    }
+}
+
+// Function to Display the Criteria selector
+var displayCriteria = function() {
+    // display criteria prompt with submit button
+    document.getElementById("passwordOverlay").style.zIndex = 1;
+}
+
 // Function to Validate user Input
 var validateInput = function() {
-    // disable the validate button
-    validateBtn.disabled = true;
-
     // create a ctiteria object to store all criteria info
     var passwordCriteria = {
         charLength: '8-128',
@@ -34,7 +46,7 @@ var validateInput = function() {
 
     // retrieve user input
     // parse the input as an int
-    passwordCriteria.charLength = parseInt(document.querySelector("#numOfChars").value);
+    passwordCriteria.charLength = parseInt(document.querySelector("#charLength").value);
 
     var checkboxes = document.getElementsByTagName("input");
     // check all the checkboxes to see if they are checked
@@ -53,7 +65,6 @@ var validateInput = function() {
         // no character options were sellected
         validInput = false;
     }
-
     if (!Number.isInteger(passwordCriteria.charLength) || passwordCriteria.charLength < 8 || passwordCriteria.charLength > 128) {
         // not an integer or not within valid range of 8 to 128
         validInput = false;
@@ -61,32 +72,13 @@ var validateInput = function() {
 
     if (!validInput) {
         window.alert("Invalid Input \n\nPlease enter a password length between 8 and 128 characters and select at least one type of character to be used");
-        // re-enable the validate button
-        validateBtn.disabled = false;
+
     } else {
         //   */
         generatePassword(passwordCriteria.charLength, passwordCriteria.Upper, passwordCriteria.Lower, passwordCriteria.Num, passwordCriteria.Special);
     }
 
 }
-
-// Function to Display teh Criteria selector
-var displayCriteria = function() {
-
-    // disable the generate button
-    generateBtn.disabled = true;
-
-    // enable the validate button
-    validateBtn.disabled = false;
-
-    // display criteria prompt with submit button
-    document.getElementById("passwordOverlay").style.opacity = 1;
-
-    // Add event listener to validate button
-    // and wait for user to click then send to validateInput function
-    validateBtn.addEventListener("click", validateInput);
-}
-
 
 // Function to Generate a Password
 var generatePassword = function(len, upp, low, num, spc) {
@@ -102,7 +94,7 @@ var generatePassword = function(len, upp, low, num, spc) {
     //random sort the array to mix up character types
     //found this touted as the most efficient algorithm online 
     // a random swap using the Fisher-Yates Algorithm
-    // i will attempt to explain it
+    // I will attempt to explain it
     /* for (let i = array.length— 1; i > 0; i--) {      // let i = array length ; while i > 0 run the loop; count down i each loop
         const j = Math.floor(Math.random() * i)         // let j = a random number up to value of i
         const temp = array[i]                        // have a temp array hold value at array[i]
@@ -129,9 +121,7 @@ var generatePassword = function(len, upp, low, num, spc) {
 
         //there are only 93 possible characters to choose from so
         //take 2 consecutive digits from seed convert to int and use as index to allowedChar
-        const randIndex = parseInt(seed.toString().substr(Math.floor(Math.random() * 7) + 1, 2));
-
-        console.log(randIndex + ":" + allowedChar[randIndex])
+        const randIndex = parseInt(seed.toString().substr(Math.floor(Math.random() * 8), 2));
 
         if (randIndex < allowedChar.length - 1) // if the index is valid (this will not scale past 99 possible characters)
         {
@@ -139,46 +129,39 @@ var generatePassword = function(len, upp, low, num, spc) {
         }
     }
 
-
     //display password
-    console.log(passGen);
+    //console.log(passGen);
     var passwordText = document.querySelector("#password");
     passwordText.value = passGen;
 
-
-    // disable the validate button
-    validateBtn.disabled = true;
-    // enable the generate button
-    generateBtn.disabled = false;
     //hide the overlay
-    document.getElementById("passwordOverlay").style.opacity = 0;
-}
-
-// Write password to the #password input
-// not used in my implimentation
-function writePassword() {
-    var password = generatePassword();
-    var passwordText = document.querySelector("#password");
-
-    passwordText.value = password;
+    document.getElementById("passwordOverlay").style.zIndex = -1;
 }
 
 function copyToClipboard() {
     // write pasword to clipboard
     navigator.clipboard.writeText(document.querySelector("#password").value);
     document.querySelector("#password").value = "Copied to Clipboard";
-
+    // reset textarea to default state after setTimeout
     setTimeout(function() {
         resetPasswordTextArea();
     }, 1200);
-
 }
 
 function resetPasswordTextArea() {
     document.querySelector("#password").value = null;
 }
-// Add event listener to generate button
-generateBtn.addEventListener("click", displayCriteria);
 
-// Add event listener to copy button
-copyBtn.addEventListener("click", copyToClipboard);
+// Add event listener to generate button
+generateBtn.addEventListener("click", displayOrCreate);
+
+// Execute a function when the user presses "Enter on the keyboard
+inputEntered.addEventListener("keyup", function(event) {
+    //  13 is the keyCode for "Enter" 
+    if (event.keyCode === 13) {
+        // prevent the default action
+        event.preventDefault();
+        // Trigger the button click
+        generateBtn.click();
+    }
+});
