@@ -5,7 +5,7 @@
 }
 
 * {
-    /* border: 1px solid black;  */
+    /*  border: 1px solid black;  */
 }
 
 html,
@@ -113,7 +113,7 @@ button[disabled] {
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: 85px;
-    font-size: 1.2rem;
+    font-size: 1.2em;
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -126,74 +126,131 @@ button[disabled] {
 }
 
 #passwordOverlay {
+    /*  this will overlay ontop of the password element 
+        and display the Criteria Prompt to user */
     display: flex;
     flex-direction: column;
+    /* position absolute to take out of flow and place directly ontop of password covering 100% */
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: burlywood;
+    /* initially this should be hidden behind password */
     z-index: -1;
 }
 
+#charSelect-wrapper,
 #charLength-wrapper {
     align-self: center;
-}
-
-input #charLength {
-    width: 4em;
-}
-
-#char-select-boxes {
     display: flex;
     flex-wrap: wrap;
+    margin-top: .2em;
+}
+
+#charSelect-wrapper {
     justify-content: flex-end;
+    max-width: 350px;
 }
 
-#char-select-boxes label.title {
+#charLength-wrapper {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#charSelect-wrapper label.title {
     width: 90%;
-    margin-top: 10px;
 }
 
-#char-select-boxes label {
+#charSelect-wrapper label {
     width: 45%;
     align-self: flex-end;
+    /* need to display:flex this so the checkboxes 
+    can align centered with their labels */
+    display: flex;
+    align-items: center;
 }
 
-.tooltip #tooltipText {
-    visibility: hidden;
-    background-color: black;
-    color: #fff;
-    padding: 5px 8px;
-    border-radius: 6px;
-    /* Position the tooltip text */
-    position: absolute;
-    z-index: 1;
-}
-
-.tooltip:hover #tooltipText {
-    visibility: visible;
-    position: fixed;
+input#charLength {
+    margin: 0 .2em;
+    width: 2.5em;
+    font-size: 1.2em;
+    text-align: center;
 }
 
 @media (max-width: 690px) {
+    /* fonts get smaller */
     .btn {
-        font-size: 1rem;
+        font-size: 1em;
         margin: 16px 0px 0px 0px;
         padding: 10px 15px;
     }
     #password,
     #passwordOverlay {
-        font-size: 1rem;
+        font-size: 1em;
     }
-    #char-select-boxes label {
-        /*   width: 100%;  */
+    /* but checkbox select area gets bigger for ease of finger taping */
+    #charSelect-wrapper label[for] {
+        padding: .4em 0;
     }
 }
 
 @media (max-width: 500px) {
+    /* start to resize padding and margins to fit better on small screens */
+    .wrapper {
+        padding: 15px 10px 0 10px;
+    }
+    header {
+        padding: 10px;
+    }
+    h1,
+    h2 {
+        /* using margin-block -start and -end 
+        because thats what the user agent stylsheet 
+        rule that I want to override is called*/
+        margin-block-start: .4em;
+        margin-block-end: .4em;
+    }
+    div.card {
+        padding: 15px 20px;
+    }
+    .card-header h2 {
+        /*looks weird off to the side so center this */
+        text-align: center;
+    }
+    #password,
+    #passwordOverlay {
+        font-size: .8em;
+    }
+    /* checkbox select area gets even bigger */
+    #charSelect-wrapper label[for] {
+        padding: .6em 0;
+    }
+    #charLength-wrapper {
+        margin-top: 0;
+    }
     .btn {
-        font-size: 0.8rem;
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 360px) {
+    /* with this last media query site now 
+    looks good down to a 221px wide screen */
+    #password,
+    #passwordOverlay {
+        font-size: .8em;
+    }
+    #charSelect-wrapper {
+        justify-content: center;
+    }
+    #charSelect-wrapper label[for] {
+        padding: .8em 0;
+        font-size: .7em;
+    }
+    .btn {
+        font-size: 0.8em;
     }
 }
