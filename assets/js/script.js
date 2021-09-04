@@ -91,8 +91,6 @@ var generatePassword = function(len, upp, low, num, spc) {
     if (num) { allowedChar = allowedChar.concat(charaterTypes.number); }
     if (spc) { allowedChar = allowedChar.concat(charaterTypes.special); }
 
-    console.log(allowedChar);
-
     //random sort the array to mix up character types
     //found this touted as the most efficient algorithm online 
     // a random swap using the Fisher-Yates Algorithm
@@ -114,8 +112,6 @@ var generatePassword = function(len, upp, low, num, spc) {
         allowedChar.splice(j, 1, temp);
     }
 
-    console.log(allowedChar)
-
     // variable to store password as it is generated
     let passGen = '';
     while (passGen.length < len) { // while less then the required number of characters loop
@@ -127,7 +123,7 @@ var generatePassword = function(len, upp, low, num, spc) {
         //take 2 consecutive digits from seed convert to int and use as index to allowedChar
         const randIndex = parseInt(seed.toString().substr(Math.floor(Math.random() * 8), 2));
 
-        if (randIndex < allowedChar.length - 1) // if the index is valid (this will not scale past 99 possible characters)
+        if (randIndex < allowedChar.length) // if the index is valid (this will not scale past 99 possible characters)
         {
             passGen += allowedChar[randIndex]; // add an allowedChar to the passGen
         }
