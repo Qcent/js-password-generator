@@ -19,32 +19,29 @@
                 <h2>Generate a Password</h2>
             </div>
             <div class="card-body">
-                <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password" onclick="copyTooClipboard()"></textarea>
+                <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password" onclick="copyToClipboard()"></textarea>
                 <!-- MY NEW HTML HERE -->
                 <div id="passwordOverlay">
 
                     <div id="char-select-boxes">
+                        <label class="title">Type(s) of Characters:</label>
                         <label for="allowUpper">
                         <input type="checkbox" id="allowUpper" name="Upper" value="" checked>
-                         Use uppercase characters</label>
+                          uppercase </label>
                         <label for="allowLower">
                         <input type="checkbox" id="allowLower" name="Lower" value="" checked>
-                         Use lowercase characters</label>
+                          lowercase </label>
                         <label for="allowNum">
                         <input type="checkbox" id="allowNum" name="Num" value="" checked>
-                         Use numeric characters</label>
+                          numeric </label>
                         <label for="allowSpecial">
                         <input type="checkbox" id="allowSpecial" name="Special" value="" checked>
-                         Use special characters</label>
+                          special </label>
                     </div>
 
-
-                    <div id="numOfChars-wrapper">
+                    <div id="Chars-and-Go">
                         <label for="numOfChars"> Password length (8-128): </label>
                         <input type="input" id="numOfChars" name="numOfChars" value="8">
-                    </div>
-
-                    <div id="validate-button-wrapper">
                         <button id="validateInput" class="btn" disabled>GO!</button>
                     </div>
 

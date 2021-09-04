@@ -4,6 +4,10 @@
         box-sizing: border-box;
     }
     
+    * {
+        /* border: 1px solid black;  */
+    }
+    
     html,
     body,
     .wrapper {
@@ -132,30 +136,33 @@
         transition: all .2s ease;
     }
     
+    #Chars-and-Go {
+        align-self: center;
+    }
+    
     #numOfChars {
         width: 4em;
     }
     
-    #numOfChars-wrapper {
-        padding-left: 25%;
+    #validateInput {
+        margin-left: 1.3em;
     }
     
     #char-select-boxes {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
-        padding-top: 10px;
+        padding-top: 0px;
+    }
+    
+    #char-select-boxes label.title {
+        width: 90%;
+        margin-top: 10px;
     }
     
     #char-select-boxes label {
         width: 45%;
         align-self: flex-end;
-    }
-    
-    #validate-button-wrapper {
-        text-align: center;
-        position: relative;
-        top: -5px;
     }
     
     @media (max-width: 690px) {
@@ -164,11 +171,12 @@
             margin: 16px 0px 0px 0px;
             padding: 10px 15px;
         }
-        #password {
+        #password,
+        #passwordOverlay {
             font-size: 1rem;
         }
         #char-select-boxes label {
-            width: 100%;
+            /*   width: 100%;  */
         }
     }
     
