@@ -125,7 +125,7 @@ var generatePassword = function(len, upp, low, num, spc) {
         // indexEnd is the first index not to included so must be 1 higher then desired index
         const indexEnd = indexStart + 2;
         const randIndex = parseInt(seed.toString().substring(indexStart, indexEnd));
-        console.log(randIndex + ":" + allowedChar[randIndex])
+
         if (randIndex < allowedChar.length) // if the index is valid (this will not scale past 99 possible characters)
         {
             passGen += allowedChar[randIndex]; // add an allowedChar to the passGen
