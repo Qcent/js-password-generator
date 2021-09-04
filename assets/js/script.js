@@ -1,8 +1,9 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 var inputEntered = document.querySelector("#charLength");
-var copyBtn = document.querySelector("#copyPassword");
+var alertCopy = document.querySelector(".card-header h2");
 var passwordText = document.querySelector("#password");
+var passwordOverlay = document.getElementById("passwordOverlay");
 
 const charaterTypes = {
     upper: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
@@ -20,7 +21,7 @@ const charaterTypes = {
 
 //Function to decide what #generate button does
 var displayOrCreate = function() {
-    if (document.getElementById("passwordOverlay").style.zIndex > 0) {
+    if (passwordOverlay.style.zIndex > 0) {
         validateInput();
     } else {
         displayCriteria();
@@ -30,7 +31,7 @@ var displayOrCreate = function() {
 // Function to Display the Criteria selector
 var displayCriteria = function() {
     // display criteria prompt with submit button
-    document.getElementById("passwordOverlay").style.zIndex = 1;
+    passwordOverlay.style.zIndex = 1;
 }
 
 // Function to Validate user Input
@@ -38,11 +39,12 @@ var validateInput = function() {
     // create a ctiteria object to store all criteria info
     var passwordCriteria = {
         charLength: '8-128',
-        //only one property is defined
-        //later if there is more then 1 defined
-        //we will know the user has selected at least one charater type
-        /* Object.keys(passwordCriteria).length */
     };
+    //only one property is defined
+    //later if there is more then 1 defined
+    //we will know the user has selected at least one charater type
+    /* Object.keys(passwordCriteria).length */
+
 
     // retrieve user input
     // parse the input as an int
@@ -56,7 +58,7 @@ var validateInput = function() {
             if (checkboxes[i].checked) { passwordCriteria[checkboxes[i].name] = true }
         }
     }
-    //   */
+    /****/
 
     // validate input
     let validInput = true;
@@ -74,7 +76,6 @@ var validateInput = function() {
         window.alert("Invalid Input \n\nPlease enter a password length between 8 and 128 characters and select at least one type of character to be used");
 
     } else {
-        //   */
         generatePassword(passwordCriteria.charLength, passwordCriteria.Upper, passwordCriteria.Lower, passwordCriteria.Num, passwordCriteria.Special);
     }
 
@@ -134,11 +135,18 @@ var generatePassword = function(len, upp, low, num, spc) {
 
     //display password
     //console.log(passGen);
-    var passwordText = document.querySelector("#password");
     passwordText.value = passGen;
 
     //hide the overlay
-    document.getElementById("passwordOverlay").style.zIndex = -1;
+    passwordOverlay.style.zIndex = -1;
+
+    //alert user copy is ready
+    alertCopy.className += " alertCopy";
+    if (window.screen.width < 360) { /* if small screen the full text does not look good */
+        alertCopy.innerHTML = "Click to copy";
+    } else {
+        alertCopy.innerHTML = "Click password to copy";
+    }
 }
 
 function copyToClipboard() {
@@ -149,6 +157,8 @@ function copyToClipboard() {
     setTimeout(function() {
         resetPasswordTextArea();
     }, 1200);
+    // reset copy alert
+    alertCopy.innerHTML = "Generate a Password";
 }
 
 function resetPasswordTextArea() {
