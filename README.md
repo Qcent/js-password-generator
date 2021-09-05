@@ -6,3 +6,41 @@ A small web app for generating random and secure passwords based on user submitt
 * Validate all input before generating a password
 * Create a custom Object with properties for allowed character types that contain an array of their respective character type
 * using ~~Math.random()~~ Crypto.getRandomValues() generate a password that matches the length and character requirements of user
+
+## My Algorithm 
+I approached the problem of generating a random password by:
+1. Creating an array of characters to be allowed in the final output.
+2. Randomize the index locations of all members of that array. To do this I used the Fisher-Yates Algorithm. reverse iterating through the array and swapping the index values with a randomly generated index, up to but not including the current iteration.
+`
+    for (let i = allowedChar.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+        const temp = allowedChar[i];
+        allowedChar.splice(i, 1, allowedChar[j]);
+        allowedChar.splice(j, 1, temp);
+    }
+`
+3. I then invoke crypto.getRandomValues() to generate a cryptographically secure 10 digit random string of numbers in the form of a Uint32Array, mostly because that sounds much cooler then using Math.random, and Im told it makes better random numbers then it's Math.random counterpart.
+`
+    //generate a cryptographically secure seed 10 chars long
+    var seed = new Uint32Array(1);
+    window.crypto.getRandomValues(seed); 
+`
+
+4. Then I generate a random index starting position, using Math.random, up to value of 8, and take a substring of the random Uint32Array from that starting index to the proceeding index, for a random 2 digit selection.
+`
+     const indexStart = Math.floor(Math.random() * 8);
+     // indexEnd is the first index not to be included so must be 1 higher then desired index returned
+     const indexEnd = indexStart + 2;
+     const randIndex = parseInt(seed.toString().substring(indexStart, indexEnd));
+`
+5. The substring is then compared, as an integer, to the length of the allowedChar array. If it is found to be a valid index number of allowedChar, then that index number's character is added to the password to be generated. Otherwise start over from step 3.
+`
+     if (randIndex < allowedChar.length) // if the index is valid (this will not scale past 99 possible characters)
+     {
+         passGen += allowedChar[randIndex]; // add an allowedChar to the passGen
+     }
+`
+6. Steps 3-5 are repeated until the length of the generated password matched the desired length set by user and the final password is displayed.
+
+## Conclusion
+This may be an overly elaborate scheme to generate such a password but I feel that this implementation will provide truly random character selection due to the 2 factor randomization process and use of the cryptographically secure method crypto.getRandomValues()
