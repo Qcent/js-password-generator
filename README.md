@@ -14,7 +14,7 @@ A small web app for generating random and secure passwords based on user submitt
 2. Once clicked, you, the "User", will be asked to specify which type(s) of characters you would like included in the password to be generated. As well as the length requirement of the aforementioned password. Please note that a password length of at least 8 and no more than 128 characters is required and that at least one character type must be selected.
 ![This is what the page looks like later](assets/images/app-screenshot-2.png?raw=true "Look of the application in mid swing")
 
-3. Once the password selection criteria has been established click the "Generate Password" button again. The input will be validated, the password will be generated, and displayed before you in a textarea. If you wish to use this password, simply click on the text area and through the magic of JavaScript the information will be transferred to you clipboard and off the screen, away from prying eyes.
+3. Once the password selection criteria has been established click the "Generate Password" button again. The input will be validated,and the password will be generated then displayed before you in a textarea. If you wish to use this password, simply click on the text area and through the magic of JavaScript the information will be transferred to your clipboard and off the screen, away from prying eyes.
 ![This is what the page could look like](assets/images/app-screenshot-3.png?raw=true "Look of the application nearing end of life")
  
 
