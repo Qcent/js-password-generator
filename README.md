@@ -13,11 +13,11 @@ I approached the problem of generating a random password by:
 2. Randomize the index locations of all members of that array. To do this I used the Fisher-Yates Algorithm. reverse iterating through the array and swapping the index values with a randomly generated index, up to but not including the current iteration.
 
 `
-    for (let i = allowedChar.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * i);
-        const temp = allowedChar[i];
-        allowedChar.splice(i, 1, allowedChar[j]);
-        allowedChar.splice(j, 1, temp);
+    for (let i = allowedChar.length - 1; i > 0; i--) { \
+        const j = Math.floor(Math.random() * i); \
+        const temp = allowedChar[i]; \
+        allowedChar.splice(i, 1, allowedChar[j]); \
+        allowedChar.splice(j, 1, temp); \
     }
 `
 
