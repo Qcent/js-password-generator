@@ -58,7 +58,7 @@ I approached the problem of generating a random password by:
      }
 ```
 
-6. Steps 3-5 are repeated until the length of the generated password matched the desired length set by user and the final password is displayed.
+6. Steps 3-5 are repeated until the length of the generated password matches the desired length set by user and the final password is displayed.
 
 ## Conclusion
 This may be an overly elaborate scheme to generate such a password but I feel that this implementation will provide truly random character selection due to the 2 factor randomization process and use of the cryptographically secure method crypto.getRandomValues()
