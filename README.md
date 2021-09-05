@@ -7,6 +7,17 @@ A small web app for generating random and secure passwords based on user submitt
 * Create a custom Object with properties for allowed character types that contain an array of their respective character type
 * using ~~Math.random()~~ Crypto.getRandomValues() generate a password that matches the length and character requirements of user
 
+## How to Use
+1. Upon navigating to the page simply click on the "Generate Password" button... you can't miss it.
+![This is what the page looks like](assets/images/app-screenshot-1.png?raw=true "Initial look of application")
+
+2. Once clicked, you, the "User", will be asked to specify which type(s) of characters you would like included in the password to be generated. As well as the length requirement of the aforementioned password. Please note that a password length of at least 8 and no more than 128 characters is required and that at least one character type must be selected.
+![This is what the page looks like later](assets/images/app-screenshot-2.png?raw=true "Look of the application in mid swing")
+
+3. Once the password selection criteria has been established and validated the password will be generated and displayed before you. If you wish to use this password, simply click on the text area and through the magic of JavaScript the information will be transferred to you clipboard and off the screen, away from prying eyes.
+![This is what the page could look like](assets/images/app-screenshot-3.png?raw=true "Look of the application nearing end of life")
+ 
+
 ## My Algorithm 
 I approached the problem of generating a random password by:
 1. Creating an array of characters to be allowed in the final output.
