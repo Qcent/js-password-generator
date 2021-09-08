@@ -36,15 +36,17 @@ var promptForLength = function() {
 var promptForUpper = function(errorMessage) {
     // display criteria prompt
 
-    passwordCriteria.uppercase = window.prompt('Would you like the password to contain UPPERCASE charatcers? \n 1 - YES \n 2 - NO', 'yes');
+    passwordCriteria.uppercase = window.prompt(errorMessage + 'Would you like the password to contain UPPERCASE charatcers? \n 1 - YES \n 2 - NO', 'yes');
 
     switch (passwordCriteria.uppercase.toUpperCase()) {
         case "YES":
         case "1":
+        case "Y":
             passwordCriteria.uppercase = 'YES';
             return 1
         case "NO":
         case "2":
+        case "N":
             return 0;
         default:
             return promptForUpper(defaultError);
@@ -55,15 +57,17 @@ var promptForUpper = function(errorMessage) {
 var promptForLower = function(errorMessage) {
     // display criteria prompt
 
-    passwordCriteria.lowercase = window.prompt('Would you like the password to contain LOWERCASE charatcers? \n 1 - YES \n 2 - NO', 'yes');
+    passwordCriteria.lowercase = window.prompt(errorMessage + 'Would you like the password to contain LOWERCASE charatcers? \n 1 - YES \n 2 - NO', 'yes');
 
     switch (passwordCriteria.lowercase.toUpperCase()) {
         case "YES":
         case "1":
+        case "Y":
             passwordCriteria.lowercase = 'YES';
             return 1
         case "NO":
         case "2":
+        case "N":
             return 0;
         default:
             return promptForLower(defaultError);
@@ -74,15 +78,17 @@ var promptForLower = function(errorMessage) {
 var promptForNumeric = function(errorMessage) {
     // display criteria prompt
 
-    passwordCriteria.numeric = window.prompt('Would you like the password to contain NUMERIC charatcers? \n 1 - YES \n 2 - NO', 'yes');
+    passwordCriteria.numeric = window.prompt(errorMessage + 'Would you like the password to contain NUMERIC charatcers? \n 1 - YES \n 2 - NO', 'yes');
 
     switch (passwordCriteria.numeric.toUpperCase()) {
         case "YES":
         case "1":
+        case "Y":
             passwordCriteria.numeric = 'YES';
             return 1
         case "NO":
         case "2":
+        case "N":
             return 0;
         default:
             return promptForNumeric(defaultError);
@@ -93,15 +99,17 @@ var promptForNumeric = function(errorMessage) {
 var promptForSpecial = function(errorMessage) {
     // display criteria prompt
 
-    passwordCriteria.special = window.prompt('Would you like the password to contain SPECIAL charatcers? \n 1 - YES \n 2 - NO', 'yes');
+    passwordCriteria.special = window.prompt(errorMessage + 'Would you like the password to contain SPECIAL charatcers? \n 1 - YES \n 2 - NO', 'yes');
 
     switch (passwordCriteria.special.toUpperCase()) {
         case "YES":
         case "1":
+        case "Y":
             passwordCriteria.special = 'YES';
             return 1
         case "NO":
         case "2":
+        case "N":
             return 0;
         default:
             return promptForSpecial(defaultError);
