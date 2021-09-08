@@ -3,6 +3,7 @@ var generateBtn = document.querySelector("#generate");
 var alertCopy = document.querySelector(".card-header h2");
 var passwordText = document.querySelector("#password");
 
+var defaultError = "PLEASE CHOOSE A VALID INPUT!!!\n";
 var passwordCriteria = {};
 
 const charaterTypes = {
@@ -32,7 +33,7 @@ var promptForLength = function() {
 }
 
 // Function to prompt for Uppercase
-var promptForUpper = function() {
+var promptForUpper = function(errorMessage) {
     // display criteria prompt
 
     passwordCriteria.uppercase = window.prompt('Would you like the password to contain UPPERCASE charatcers? \n 1 - YES \n 2 - NO', 'yes');
@@ -46,12 +47,12 @@ var promptForUpper = function() {
         case "2":
             return 0;
         default:
-            return promptForUpper();
+            return promptForUpper(defaultError);
     }
 }
 
 // Function to prompt for Lowercase
-var promptForLower = function() {
+var promptForLower = function(errorMessage) {
     // display criteria prompt
 
     passwordCriteria.lowercase = window.prompt('Would you like the password to contain LOWERCASE charatcers? \n 1 - YES \n 2 - NO', 'yes');
@@ -65,12 +66,12 @@ var promptForLower = function() {
         case "2":
             return 0;
         default:
-            return promptForLower();
+            return promptForLower(defaultError);
     }
 }
 
 // Function to prompt for Numeric
-var promptForNumeric = function() {
+var promptForNumeric = function(errorMessage) {
     // display criteria prompt
 
     passwordCriteria.numeric = window.prompt('Would you like the password to contain NUMERIC charatcers? \n 1 - YES \n 2 - NO', 'yes');
@@ -84,12 +85,12 @@ var promptForNumeric = function() {
         case "2":
             return 0;
         default:
-            return promptForNumeric();
+            return promptForNumeric(defaultError);
     }
 }
 
 // Function to prompt for Special
-var promptForSpecial = function() {
+var promptForSpecial = function(errorMessage) {
     // display criteria prompt
 
     passwordCriteria.special = window.prompt('Would you like the password to contain SPECIAL charatcers? \n 1 - YES \n 2 - NO', 'yes');
@@ -103,7 +104,7 @@ var promptForSpecial = function() {
         case "2":
             return 0;
         default:
-            return promptForSpecial();
+            return promptForSpecial(defaultError);
     }
 }
 
