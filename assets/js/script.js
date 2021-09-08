@@ -4,6 +4,7 @@ var inputEntered = document.querySelector("#charLength");
 var alertCopy = document.querySelector(".card-header h2");
 var passwordText = document.querySelector("#password");
 var passwordOverlay = document.getElementById("passwordOverlay");
+var passwordCriteria = {};
 
 const charaterTypes = {
     upper: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
@@ -19,65 +20,110 @@ const charaterTypes = {
     ]
 }
 
-//Function to decide what #generate button does
-var displayOrCreate = function() {
-    if (passwordOverlay.style.zIndex > 0) {
-        validateInput();
-    } else {
-        displayCriteria();
+
+// Function to prompt for length
+var promptForLength = function() {
+    // display criteria prompt
+
+    passwordCriteria.length = window.prompt('How Long of a password? (8-128)')
+        // validation for length
+    if (passwordCriteria.length > 128 || passwordCriteria.length < 8) {
+        alert('Invalid Password Length! Read the instructions better.');
+        return promptForLength();
     }
 }
 
-// Function to Display the Criteria selector
-var displayCriteria = function() {
-    // display criteria prompt with submit button
-    passwordOverlay.style.zIndex = 1;
+// Function to prompt for Uppercase
+var promptForUpper = function() {
+    // display criteria prompt
+
+    passwordCriteria.uppercase = window.prompt('Would you like the password to contain UPPERCASE charatcers? \n 1 - YES \n 2 - NO', 'yes');
+
+    switch (passwordCriteria.uppercase.toUpperCase()) {
+        case "YES":
+        case "1":
+            passwordCriteria.uppercase = 'YES';
+            return 1
+        case "NO":
+        case "2":
+            return 0;
+        default:
+            return promptForUpper();
+    }
 }
 
-// Function to Validate user Input
-var validateInput = function() {
-    // create a ctiteria object to store all criteria info
-    var passwordCriteria = {
-        charLength: '8-128',
-    };
-    //only one property is defined
-    //later if there is more then 1 defined
-    //we will know the user has selected at least one charater type
-    /* Object.keys(passwordCriteria).length */
+// Function to prompt for Lowercase
+var promptForLower = function() {
+    // display criteria prompt
 
+    passwordCriteria.lowercase = window.prompt('Would you like the password to contain LOWERCASE charatcers? \n 1 - YES \n 2 - NO', 'yes');
 
-    // retrieve user input
-    // parse the input as an int
-    passwordCriteria.charLength = parseInt(document.querySelector("#charLength").value);
-
-    var checkboxes = document.getElementsByTagName("input");
-    // check all the checkboxes to see if they are checked
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].type == "checkbox") {
-            // if box is checked define a new property of checkbox.name and set it true
-            if (checkboxes[i].checked) { passwordCriteria[checkboxes[i].name] = true }
-        }
+    switch (passwordCriteria.lowercase.toUpperCase()) {
+        case "YES":
+        case "1":
+            passwordCriteria.lowercase = 'YES';
+            return 1
+        case "NO":
+        case "2":
+            return 0;
+        default:
+            return promptForLower();
     }
-    /****/
+}
 
-    // validate input
-    let validInput = true;
+// Function to prompt for Numeric
+var promptForNumeric = function() {
+    // display criteria prompt
 
-    if (Object.keys(passwordCriteria).length < 2) {
-        // no character options were sellected
-        validInput = false;
+    passwordCriteria.numeric = window.prompt('Would you like the password to contain NUMERIC charatcers? \n 1 - YES \n 2 - NO', 'yes');
+
+    switch (passwordCriteria.numeric.toUpperCase()) {
+        case "YES":
+        case "1":
+            passwordCriteria.numeric = 'YES';
+            return 1
+        case "NO":
+        case "2":
+            return 0;
+        default:
+            return promptForNumeric();
     }
-    if (!Number.isInteger(passwordCriteria.charLength) || passwordCriteria.charLength < 8 || passwordCriteria.charLength > 128) {
-        // not an integer or not within valid range of 8 to 128
-        validInput = false;
+}
+
+// Function to prompt for Special
+var promptForSpecial = function() {
+    // display criteria prompt
+
+    passwordCriteria.special = window.prompt('Would you like the password to contain SPECIAL charatcers? \n 1 - YES \n 2 - NO', 'yes');
+
+    switch (passwordCriteria.special.toUpperCase()) {
+        case "YES":
+        case "1":
+            passwordCriteria.special = 'YES';
+            return 1
+        case "NO":
+        case "2":
+            return 0;
+        default:
+            return promptForSpecial();
+    }
+}
+
+// Function to collect user Input
+var collectCriteria = function() {
+
+    promptForLength();
+    let charTypeCount = 0;
+    while (charTypeCount < 1) {
+        charTypeCount += promptForUpper();
+        charTypeCount += promptForLower();
+        charTypeCount += promptForNumeric();
+        charTypeCount += promptForSpecial();
+
+        if (charTypeCount === 0) { alert("You need to pick at least one charater type") }
     }
 
-    if (!validInput) {
-        window.alert("Invalid Input \n\nPlease enter a password length between 8 and 128 characters and select at least one type of character to be used");
-
-    } else {
-        generatePassword(passwordCriteria.charLength, passwordCriteria.Upper, passwordCriteria.Lower, passwordCriteria.Num, passwordCriteria.Special);
-    }
+    generatePassword(passwordCriteria.length, passwordCriteria.uppercase, passwordCriteria.lowercase, passwordCriteria.numeric, passwordCriteria.special);
 
 }
 
@@ -87,10 +133,10 @@ var generatePassword = function(len, upp, low, num, spc) {
     //make a list of valid charaters
     var allowedChar = new Array();
 
-    if (upp) { allowedChar = allowedChar.concat(charaterTypes.upper); }
-    if (low) { allowedChar = allowedChar.concat(charaterTypes.lower); }
-    if (num) { allowedChar = allowedChar.concat(charaterTypes.number); }
-    if (spc) { allowedChar = allowedChar.concat(charaterTypes.special); }
+    if (upp === 'YES') { allowedChar = allowedChar.concat(charaterTypes.upper); }
+    if (low === 'YES') { allowedChar = allowedChar.concat(charaterTypes.lower); }
+    if (num === 'YES') { allowedChar = allowedChar.concat(charaterTypes.number); }
+    if (spc === 'YES') { allowedChar = allowedChar.concat(charaterTypes.special); }
 
     //random sort the array to mix up character types
     //found this touted as the most efficient algorithm online 
@@ -166,7 +212,7 @@ function resetPasswordTextArea() {
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", displayOrCreate);
+generateBtn.addEventListener("click", collectCriteria);
 
 // Execute a function when the user presses "Enter on the keyboard
 inputEntered.addEventListener("keyup", function(event) {
