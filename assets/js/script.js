@@ -1,9 +1,8 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-var inputEntered = document.querySelector("#charLength");
 var alertCopy = document.querySelector(".card-header h2");
 var passwordText = document.querySelector("#password");
-var passwordOverlay = document.getElementById("passwordOverlay");
+
 var passwordCriteria = {};
 
 const charaterTypes = {
@@ -19,7 +18,6 @@ const charaterTypes = {
         "]", "^", "_", "`", "{", "|", "}", "~"
     ]
 }
-
 
 // Function to prompt for length
 var promptForLength = function() {
@@ -124,7 +122,6 @@ var collectCriteria = function() {
     }
 
     generatePassword(passwordCriteria.length, passwordCriteria.uppercase, passwordCriteria.lowercase, passwordCriteria.numeric, passwordCriteria.special);
-
 }
 
 // Function to Generate a Password
@@ -137,18 +134,6 @@ var generatePassword = function(len, upp, low, num, spc) {
     if (low === 'YES') { allowedChar = allowedChar.concat(charaterTypes.lower); }
     if (num === 'YES') { allowedChar = allowedChar.concat(charaterTypes.number); }
     if (spc === 'YES') { allowedChar = allowedChar.concat(charaterTypes.special); }
-
-    //random sort the array to mix up character types
-    //found this touted as the most efficient algorithm online 
-    // a random swap using the Fisher-Yates Algorithm
-    // I will attempt to explain it
-    /* for (let i = array.length— 1; i > 0; i--) {      // let i = array length ; while i > 0 run the loop; count down i each loop
-        const j = Math.floor(Math.random() * i)         // let j = a random number up to value of i
-        const temp = array[i]                        // have a temp array hold value at array[i]
-        array[i] = array[j]                         // change array[i] value to the random(j) chosen position array[j]
-        array[j] = temp                             // change array[j] value to the original value of the array[i]
-    } // continue counting through array until every element has been swaped out for another by brute force
-    */
 
     for (let i = allowedChar.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * i);
@@ -183,8 +168,6 @@ var generatePassword = function(len, upp, low, num, spc) {
     //console.log(passGen);
     passwordText.value = passGen;
 
-    //hide the overlay
-    passwordOverlay.style.zIndex = -1;
 
     //alert user copy is ready
     alertCopy.className += " alertCopy";

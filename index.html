@@ -20,33 +20,6 @@
             </div>
             <div class="card-body" title="Click to Copy to Clipboard">
                 <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password" onclick="copyToClipboard()"></textarea>
-                <!-- MY NEW HTML HERE -->
-                <div id="passwordOverlay">
-
-                    <div id="charSelect-wrapper">
-                        <label class="title">Type(s) of Characters:</label>
-                        <label for="allowUpper">
-                        <input type="checkbox" id="allowUpper" name="Upper" value="" checked>
-                          uppercase </label>
-                        <label for="allowLower">
-                        <input type="checkbox" id="allowLower" name="Lower" value="" checked>
-                          lowercase </label>
-                        <label for="allowNum">
-                        <input type="checkbox" id="allowNum" name="Num" value="" checked>
-                          numeric </label>
-                        <label for="allowSpecial">
-                        <input type="checkbox" id="allowSpecial" name="Special" value="" checked>
-                          special </label>
-                    </div>
-
-                    <div id="charLength-wrapper">
-                        <label for="charLength"> Password length (8-128): </label>
-                        <input type="input" id="charLength" name="charLength" value="8">
-                    </div>
-
-                </div>
-
-                <!-- END OF MY NEW HTLML-->
             </div>
             <div class="card-footer">
                 <button id="generate" class="btn" tabindex="1">Generate Password</button>
