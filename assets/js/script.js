@@ -122,10 +122,10 @@ var collectCriteria = function() {
     promptForLength();
     let charTypeCount = 0;
     while (charTypeCount < 1) {
-        charTypeCount += promptForUpper();
-        charTypeCount += promptForLower();
-        charTypeCount += promptForNumeric();
-        charTypeCount += promptForSpecial();
+        charTypeCount += promptForUpper('');
+        charTypeCount += promptForLower('');
+        charTypeCount += promptForNumeric('');
+        charTypeCount += promptForSpecial('');
 
         if (charTypeCount === 0) { alert("You need to pick at least one charater type") }
     }
