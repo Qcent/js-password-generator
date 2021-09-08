@@ -198,7 +198,7 @@ function resetPasswordTextArea() {
 generateBtn.addEventListener("click", collectCriteria);
 
 // Execute a function when the user presses "Enter on the keyboard
-inputEntered.addEventListener("keyup", function(event) {
+generateBtn.addEventListener("keyup", function(event) {
     //  13 is the keyCode for "Enter" 
     if (event.keyCode === 13) {
         // prevent the default action
